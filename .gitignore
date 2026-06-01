@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Mengabaikan database dan artifact lokal MLflow
+mlruns/
