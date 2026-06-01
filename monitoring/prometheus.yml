@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 10s
+
+scrape_configs:
+  # Memantau kesehatan sistem lingkungan MLOps
+  - job_name: "system_environment_health"
+    static_configs:
+      - targets: ["localhost:9090"]

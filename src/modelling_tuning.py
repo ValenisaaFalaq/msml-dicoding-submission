@@ -9,6 +9,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 import mlflow
 import joblib
 import logging
+import shutil
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -68,8 +69,14 @@ def train_and_tune():
     plt.close()
 
     # C. Simpan Model Fisik
-    model_path = "models/rf_tuned_model.pkl"
-    joblib.dump(best_model, model_path)
+    model_dir = "models/mlflow_model"
+    
+    # Hapus folder model lama jika sudah ada agar tidak error saat ditimpa
+    if os.path.exists(model_dir):
+        shutil.rmtree(model_dir)
+        
+    # Simpan model dengan format MLflow (folder berisi MLmodel, conda.yaml, dll)
+    mlflow.sklearn.save_model(best_model, model_dir)
 
     # 6. Manual Logging ke MLflow (TANPA AUTOLOG)
     mlflow.set_experiment("Tuned_Model_Experiment")

@@ -1,0 +1,7 @@
+name: Customer_Personality_Analysis
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    command: "python src/modelling_tuning.py"
