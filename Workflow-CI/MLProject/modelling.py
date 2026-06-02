@@ -2,7 +2,7 @@ import pandas as pd
 import logging
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score
 import mlflow
 
 # Konfigurasi Logging
@@ -13,16 +13,15 @@ def load_data(filepath):
     return pd.read_csv(filepath)
 
 def train_base_model():
-    # 1. Siapkan Data
-    df = load_data('./data/processed/dataset_clean.csv')
+    # 1. Siapkan Data (Path sudah disesuaikan dengan folder baru)
+    df = load_data('Workflow-CI/MLProject/dataset_preprocessing.csv')
     
-    # Pisahkan fitur (X) dan target (y). Sesuaikan 'Response' dengan nama kolom targetmu jika berbeda (huruf besar/kecil).
+    # Pisahkan fitur dan target
     X = df.drop(columns=['Response']) 
     y = df['Response']
     
-    # Split data (80% training, 20% testing)
+    # Split data
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
     
     mlflow.set_experiment("Base_Model_Experiment")
     mlflow.sklearn.autolog()
